@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scan QR - Student</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://unpkg.com/html5-qrcode"></script>
+<style>
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #e3f2fd, #90caf9);
+    margin: 0;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+.container {
+    background: white;
+    padding: 40px 50px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    text-align: center;
+    transition: transform 0.3s;
+    max-width: 400px;
+    width: 90%;
+}
+.container:hover {
+    transform: translateY(-5px);
+}
+h1 {
+    color: #0d47a1;
+    margin-bottom: 20px;
+}
+#reader {
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    background: #ffffffcc;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+.info-box {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: #ffffffcc;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    font-size: 1rem;
+    text-align: center;
+    color: #0d47a1;
+}
+button {
+    margin-top: 0.5rem;
+    padding: 0.6rem 1.5rem;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(90deg, #42a5f5, #1e88e5);
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.2s ease, box-shadow 0.2s;
+}
+button:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+input[type="text"] {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border-radius: 10px;
+    border: 1px solid #90caf9;
+    width: 80%;
+    margin-top: 0.5rem;
+    text-align: center;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Scan Your QR Code</h1>
+    <div id="reader"></div>
+
+    <div class="info-box" id="info">Scan QR or enter Student ID manually</div>
+
+    <!-- Manual Input Section -->
+    <input type="text" id="manualId" placeholder="Enter Student ID (e.g., S001)">
+    <button onclick="manualMark()">Mark Attendance</button>
+</div>
+
+<script>
+const students = {
+    "S001": {name: "Alice", class: "ECE-A", parent: "Mr. Smith", phone: "9999999999", email: "smith@example.com", present: 0, total: 0},
+    "S002": {name: "Bob", class: "ECE-B", parent: "Mrs. Brown", phone: "8888888888", email: "brown@example.com", present: 0, total: 0}
+};
+
+function markAttendance(studentId) {
+    const student = students[studentId];
+    if (!student) {
+        document.getElementById("info").textContent = "❌ Student not found!";
+        document.getElementById("info").style.color = "#d32f2f";
+        return;
+    }
+
+    const lastMarked = localStorage.getItem(`lastMarked-${studentId}`);
+    const now = Date.now();
+
+    if (lastMarked && now - lastMarked < 3600000) { // 1 hour
+        document.getElementById("info").textContent = `⚠️ Attendance already marked for ${student.name} within 1 hour!`;
+        document.getElementById("info").style.color = "#f57c00";
+        return;
+    }
+
+    student.present++;
+    student.total++;
+    localStorage.setItem(`student-${studentId}`, JSON.stringify(student));
+    localStorage.setItem(`lastMarked-${studentId}`, now);
+
+    document.getElementById("info").textContent = `✅ Attendance marked for ${student.name} at ${new Date().toLocaleTimeString()}`;
+    document.getElementById("info").style.color = "#2e7d32";
+
+    // Redirect after 1.5 sec
+    setTimeout(() => { window.location.href = "marked.html"; }, 1500);
+}
+
+// Manual attendance
+function manualMark() {
+    const id = document.getElementById("manualId").value.trim();
+    if (id === "") {
+        alert("Please enter a Student ID!");
+        return;
+    }
+    markAttendance(id);
+}
+
+// Initialize QR scanner
+const html5QrcodeScanner = new Html5Qrcode("reader");
+
+html5QrcodeScanner.start(
+    { facingMode: "environment" },
+    { fps: 10, qrbox: 250 },
+    (decodedText) => {
+        markAttendance(decodedText);
+        html5QrcodeScanner.stop();
+    },
+    (errorMessage) => {
+        console.log("Scanning...", errorMessage);
+    }
+);
+</script>
+
+</body>
+</html>
+

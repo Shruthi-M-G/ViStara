@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teacher Dashboard</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h1>Teacher Dashboard</h1>
+<div class="dashboard-container" id="dashboard"></div>
+
+<script>
+const students = {
+    "S001": {name:"SHRUTHI.M.G", class:"ECE-A", parent:"Mr.S.Gopinath", phone:"9876543210", email:"parent1@mail.com"},
+    "S002": {name:"ARJUN.M.M", class:"ECE-A", parent:"Mr.M.Manickam", phone:"9876501234", email:"parent2@mail.com"},
+    "S003": {name:"SUBHASHREE.R.R", class:"ECE-B", parent:"Mr. Rajasekaran", phone:"9876512345", email:"parent3@mail.com"},
+    "S004": {name:"VIJAYAKUMAR.S", class:"ECE-B", parent:"Mrs.Varsha", phone:"9876523456", email:"parent4@mail.com"},
+    "S005": {name:"VAISHNAVI.K", class:"ECE-A", parent:"Mr.karthikeyan", phone:"9876534567", email:"parent5@mail.com"}
+};
+
+let record = JSON.parse(localStorage.getItem("attendance")) || {};
+
+function createCard(id){
+    let r = record[id] || {present:0,total:0};
+    let percent = r.total? Math.round((r.present/r.total)*100) : 0;
+    let color = percent >= 75 ? "green" : "red";
+    let card = document.createElement("div");
+    card.className = "student-card " + color;
+    card.innerHTML = `<h3>${students[id].name}</h3>
+                      <p>Class: ${students[id].class}</p>
+                      <p>Parent: ${students[id].parent}</p>
+                      <p>Phone: ${students[id].phone}</p>
+                      <p>Email: ${students[id].email}</p>
+                      <p>Attendance: ${percent}% (${r.present}/${r.total})</p>
+                      <button onclick="alertParent('${id}')">Send Alert</button>`;
+    return card;
+}
+
+function alertParent(id){
+    let r = record[id] || {present:0,total:0};
+    let percent = r.total? Math.round((r.present/r.total)*100) : 0;
+    if(percent < 75){
+        alert(`Alert: ${students[id].parent} - ${students[id].name} has attendance ${percent}%`);
+    } else {
+        alert(`${students[id].name} has good attendance: ${percent}%`);
+    }
+}
+
+const dashboard = document.getElementById("dashboard");
+for(let id in students){
+    dashboard.appendChild(createCard(id));
+}
+</script>
+</body>
+</html>
