@@ -1,56 +1,244 @@
+
+Vijayakumar S
+9:27 PM (14 minutes ago)
+to me
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Teacher Dashboard</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teacher Dashboard</title>
+  <style>
+    .daily-schedule 
+    {
+  text-align: center; /* centers inline elements like <img> */
+}
+.daily-schedule img 
+{
+  display: inline-block; /* keeps image respect text-align */
+}
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f8fc;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+    header {
+      background: #0077cc;
+      color: white;
+      padding: 15px;
+      text-align: center;
+    }
+    
+    nav {
+      background: #005fa3;
+      padding: 10px;
+      text-align: center;
+    }
+    nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    nav a.active {
+      text-decoration: underline;
+    }
+    .container {
+      width: 95%;
+      margin: 20px auto;
+      display: none;
+    }
+    .active-section {
+      display: block;
+    }
+    h2 {
+      color: #005fa3;
+      border-bottom: 2px solid #0077cc;
+      padding-bottom: 5px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 15px 0;
+      background: white;
+    }
+    table, th, td {
+      border: 1px solid #ddd;
+      text-align: center;
+      padding: 8px;
+    }
+    th {
+      background: #0077cc;
+      color: white;
+    }
+    tr:nth-child(even) {
+      background: #f2f8ff;
+    }
+    .present { background-color: #c8f7c5; }
+    .absent { background-color: white; }
+    .low-attendance {
+      background-color: #f8d7da !important;
+      color: #a94442;
+      font-weight: bold;
+    }
+    .daily-schedule img {
+      max-width: 100%;
+      border: 2px solid #0077cc;
+      border-radius: 8px;
+      margin-top: 10px;
+    }
+    button {
+      padding: 5px 10px;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+      margin: 2px;
+    }
+    .btn-present { background: #28a745; color: white; }
+    .btn-absent { background: #dc3545; color: white; }
+  </style>
 </head>
 <body>
-<h1>Teacher Dashboard</h1>
-<div class="dashboard-container" id="dashboard"></div>
+  <header>
+    <h1>Teacher Dashboard</h1>
+  </header>
+  <nav>
+    <a class="active" onclick="showSection('daily')">Daily Attendance</a>
+    <a onclick="showSection('monthly')">Monthly Attendance</a>
+    <a onclick="showSection('schedule')">Class Schedule</a>
+  </nav>
 
-<script>
-const students = {
-    "S001": {name:"SHRUTHI.M.G", class:"ECE-A", parent:"Mr.S.Gopinath", phone:"9876543210", email:"parent1@mail.com"},
-    "S002": {name:"ARJUN.M.M", class:"ECE-A", parent:"Mr.M.Manickam", phone:"9876501234", email:"parent2@mail.com"},
-    "S003": {name:"SUBHASHREE.R.R", class:"ECE-B", parent:"Mr. Rajasekaran", phone:"9876512345", email:"parent3@mail.com"},
-    "S004": {name:"VIJAYAKUMAR.S", class:"ECE-B", parent:"Mrs.Varsha", phone:"9876523456", email:"parent4@mail.com"},
-    "S005": {name:"VAISHNAVI.K", class:"ECE-A", parent:"Mr.karthikeyan", phone:"9876534567", email:"parent5@mail.com"}
-};
+  <!-- DAILY ATTENDANCE -->
+  <div class="container active-section" id="daily">
+    <h2>Daily Attendance</h2>
+    <table>
+      <tr>
+        <th>S.No</th><th>Roll Number</th><th>Name</th><th>Mark Attendance</th>
+      </tr>
+      <tr>
+        <td>1</td><td>24EC203</td><td>Santhiya M</td>
+        <td>
+          <button class="btn-present" onclick="markPresent(this)">Present</button>
+          <button class="btn-absent" onclick="markAbsent(this)">Absent</button>
+        </td>
+      </tr>
+      <tr>
+        <td>2</td><td>23EC007</td><td>Shruthi M G</td>
+        <td>
+          <button class="btn-present" onclick="markPresent(this)">Present</button>
+          <button class="btn-absent" onclick="markAbsent(this)">Absent</button>
+        </td>
+      </tr>
+      <tr>
+        <td>3</td><td>23EC153</td><td>Subhashree R.R</td>
+        <td>
+          <button class="btn-present" onclick="markPresent(this)">Present</button>
+          <button class="btn-absent" onclick="markAbsent(this)">Absent</button>
+        </td>
+      </tr>
+      <tr>
+        <td>4</td><td>23EC164</td><td>Vaishnavi K</td>
+        <td>
+          <button class="btn-present" onclick="markPresent(this)">Present</button>
+          <button class="btn-absent" onclick="markAbsent(this)">Absent</button>
+        </td>
+      </tr>
+      <tr>
+        <td>5</td><td>23EC166</td><td>Vijayakumar</td>
+        <td>
+          <button class="btn-present" onclick="markPresent(this)">Present</button>
+          <button class="btn-absent" onclick="markAbsent(this)">Absent</button>
+        </td>
+      </tr>
+      <tr>
+        <td>6</td><td>23EC143</td><td>Arjun M M</td>
+        <td>
+          <button class="btn-present" onclick="markPresent(this)">Present</button>
+          <button class="btn-absent" onclick="markAbsent(this)">Absent</button>
+        </td>
+      </tr>
+    </table>
+  </div>
 
-let record = JSON.parse(localStorage.getItem("attendance")) || {};
+  <!-- MONTHLY ATTENDANCE -->
+  <div class="container" id="monthly">
+    <h2>Monthly Attendance Report</h2>
+    <table>
+      <tr>
+        <th>S.No</th><th>Roll Number</th><th>Name</th>
+        <th>Class & Section</th><th>Parent Phone</th>
+        <th>Parent Email</th><th>Attendance %</th>
+      </tr>
+      <tr>
+        <td>1</td><td>24EC203</td><td>Santhiya M</td>
+        <td>ECE - III A</td><td>9876543210</td>
+        <td>santhiya.parent@email.com</td><td>92%</td>
+      </tr>
+      <tr class="low-attendance">
+        <td>2</td><td>23EC007</td><td>Shruthi M G</td>
+        <td>ECE - III A</td><td>9876543211</td>
+        <td>shruthi.parent@email.com</td><td>68%</td>
+      </tr>
+      <tr>
+        <td>3</td><td>23EC153</td><td>Subhashree R.R</td>
+        <td>ECE - III A</td><td>9876543212</td>
+        <td>subhashree.parent@email.com</td><td>84%</td>
+      </tr>
+      <tr>
+        <td>4</td><td>23EC164</td><td>Vaishnavi K</td>
+        <td>ECE - III A</td><td>9876543213</td>
+        <td>vaishnavi.parent@email.com</td><td>87%</td>
+      </tr>
+      <tr>
+        <td>5</td><td>23EC166</td><td>Vijayakumar</td>
+        <td>ECE - III A</td><td>9876543214</td>
+        <td>vijay.parent@email.com</td><td>90%</td>
+      </tr>
+      <tr>
+        <td>6</td><td>23EC143</td><td>Arjun M M</td>
+        <td>ECE - III A</td><td>9876543215</td>
+        <td>arjun.parent@email.com</td><td>80%</td>
+      </tr>
+    </table>
+  </div>
 
-function createCard(id){
-    let r = record[id] || {present:0,total:0};
-    let percent = r.total? Math.round((r.present/r.total)*100) : 0;
-    let color = percent >= 75 ? "green" : "red";
-    let card = document.createElement("div");
-    card.className = "student-card " + color;
-    card.innerHTML = `<h3>${students[id].name}</h3>
-                      <p>Class: ${students[id].class}</p>
-                      <p>Parent: ${students[id].parent}</p>
-                      <p>Phone: ${students[id].phone}</p>
-                      <p>Email: ${students[id].email}</p>
-                      <p>Attendance: ${percent}% (${r.present}/${r.total})</p>
-                      <button onclick="alertParent('${id}')">Send Alert</button>`;
-    return card;
-}
+  <!-- CLASS SCHEDULE -->
+  <div class="container" id="schedule">
+    <h2>Class Schedule & Teacher Info</h2>
+    <div class="daily-schedule">
+      <img src="tt.jpg" alt="Class Schedule">
+    </div>
+    <table>
+      <tr><th>Period</th><th>Subject</th><th>Teacher Name</th><th>Email</th></tr>
+      <tr><td>1</td><td>Mathematics</td><td>Prof. Kumar</td><td>kumar@college.edu</td></tr>
+      <tr><td>2</td><td>Electronics</td><td>Dr. Meena</td><td>meena@college.edu</td></tr>
+      <tr><td>3</td><td>Computer Networks</td><td>Mr. Ravi</td><td>ravi@college.edu</td></tr>
+      <tr><td>4</td><td>Digital Systems</td><td>Ms. Priya</td><td>priya@college.edu</td></tr>
+    </table>
+  </div>
 
-function alertParent(id){
-    let r = record[id] || {present:0,total:0};
-    let percent = r.total? Math.round((r.present/r.total)*100) : 0;
-    if(percent < 75){
-        alert(`Alert: ${students[id].parent} - ${students[id].name} has attendance ${percent}%`);
-    } else {
-        alert(`${students[id].name} has good attendance: ${percent}%`);
+  <script>
+    function showSection(id) {
+      document.querySelectorAll('.container').forEach(c => c.classList.remove('active-section'));
+      document.getElementById(id).classList.add('active-section');
+      document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+      event.target.classList.add('active');
     }
-}
-
-const dashboard = document.getElementById("dashboard");
-for(let id in students){
-    dashboard.appendChild(createCard(id));
-}
-</script>
+    function markPresent(btn) {
+      let row = btn.closest("tr");
+      row.classList.add("present");
+      row.classList.remove("absent");
+    }
+    function markAbsent(btn) {
+      let row = btn.closest("tr");
+      row.classList.add("absent");
+      row.classList.remove("present");
+    }
+  </script>
 </body>
 </html>
