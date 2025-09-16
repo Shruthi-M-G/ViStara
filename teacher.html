@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -235,6 +236,36 @@
       row.classList.remove("present");
     }
   </script>
-</body>
+  <script>
+  // Live attendance marking from scanner
+  function liveMarkAttendance() {
+    let todayAttendance = JSON.parse(localStorage.getItem("attendance")) || {};
+    let today = new Date().toLocaleDateString();
 
+    if(!todayAttendance[today]) return; // no scanned attendance for today
+
+    // loop over scanned roll numbers and mark present in daily table
+    todayAttendance[today].forEach(roll => {
+      document.querySelectorAll('#daily table tr').forEach(row => {
+        let rowRoll = row.cells[1]?.innerText.trim();
+        if(rowRoll === roll) {
+          row.classList.add("present");
+          row.classList.remove("absent");
+        }
+      });
+    });
+
+    // Optional: remove today's attendance after marking to avoid duplicates
+    // delete todayAttendance[today];
+    // localStorage.setItem("attendance", JSON.stringify(todayAttendance));
+  }
+
+  // Call on page load
+  window.onload = function() {
+    liveMarkAttendance();
+  }
+</script>
+
+</body>
 </html>
+
