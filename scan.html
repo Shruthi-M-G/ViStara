@@ -97,11 +97,21 @@
     }
   }
 
-  function onScanSuccess(decodedText) {
-    let rollNumber = decodedText.trim().toUpperCase();
-    console.log("Scanned QR:", rollNumber);
-    markAttendance(rollNumber);
+function onScanSuccess(qrCodeMessage) {
+  // Load attendance from localStorage (or make a new one)
+  let students = JSON.parse(localStorage.getItem("attendance")) || {};
+
+  // Check if already marked
+  if (!students[qrCodeMessage]) {
+    students[qrCodeMessage] = "Present";
+    localStorage.setItem("attendance", JSON.stringify(students));
+    alert("Attendance marked for: " + qrCodeMessage);
+  } else {
+    // Skip duplicate scans
+    console.log("Duplicate scan ignored for " + qrCodeMessage);
   }
+}
+
 
   function goToLogin() {
     window.location.href = "login.html"; // replace with your login page
@@ -125,3 +135,4 @@
 </script>
 </body>
 </html>
+
