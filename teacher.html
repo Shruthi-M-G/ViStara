@@ -49,27 +49,27 @@
       <tr>
         <th>S.No</th><th>Roll Number</th><th>Name</th><th>Mark Attendance</th>
       </tr>
-      <tr>
+      <tr id="student-24EC203">
         <td>1</td><td>24EC203</td><td>Santhiya M</td>
         <td><button class="btn-present" onclick="markPresent(this)">Present</button><button class="btn-absent" onclick="markAbsent(this)">Absent</button></td>
       </tr>
-      <tr>
+      <tr id="student-23EC007">
         <td>2</td><td>23EC007</td><td>Shruthi M G</td>
         <td><button class="btn-present" onclick="markPresent(this)">Present</button><button class="btn-absent" onclick="markAbsent(this)">Absent</button></td>
       </tr>
-      <tr>
+      <tr id="student-23EC153">
         <td>3</td><td>23EC153</td><td>Subhashree R.R</td>
         <td><button class="btn-present" onclick="markPresent(this)">Present</button><button class="btn-absent" onclick="markAbsent(this)">Absent</button></td>
       </tr>
-      <tr>
+      <tr id="student-23EC164">
         <td>4</td><td>23EC164</td><td>Vaishnavi K</td>
         <td><button class="btn-present" onclick="markPresent(this)">Present</button><button class="btn-absent" onclick="markAbsent(this)">Absent</button></td>
       </tr>
-      <tr>
+      <tr id="student-23EC166">
         <td>5</td><td>23EC166</td><td>Vijayakumar</td>
         <td><button class="btn-present" onclick="markPresent(this)">Present</button><button class="btn-absent" onclick="markAbsent(this)">Absent</button></td>
       </tr>
-      <tr>
+      <tr id="student-23EC143">
         <td>6</td><td>23EC143</td><td>Arjun M M</td>
         <td><button class="btn-present" onclick="markPresent(this)">Present</button><button class="btn-absent" onclick="markAbsent(this)">Absent</button></td>
       </tr>
@@ -146,7 +146,6 @@
       row.classList.add("present");
       row.classList.remove("absent");
 
-      // Also highlight in assignments table
       let studentName = row.cells[2].innerText;
       document.querySelectorAll("#activities-table tr").forEach(r => {
         if(r.cells[1] && r.cells[1].innerText === studentName){
@@ -159,6 +158,23 @@
       let row = btn.closest("tr");
       row.classList.add("absent");
       row.classList.remove("present");
+    }
+
+    function markPresentByRoll(rollNumber) {
+        const row = document.getElementById(`student-${rollNumber}`);
+        if(row){
+            if(!row.classList.contains("present")){
+                row.classList.add("present");
+                row.classList.remove("absent");
+            }
+
+            let studentName = row.cells[2].innerText;
+            document.querySelectorAll("#activities-table tr").forEach(r => {
+                if(r.cells[1] && r.cells[1].innerText === studentName){
+                    r.style.backgroundColor = "#c8f7c5";
+                }
+            });
+        }
     }
 
     function updateLeaderboard() {
@@ -180,8 +196,14 @@
       });
     }
 
-    window.onload = updateLeaderboard;
+    // --- Unified window.onload ---
+    window.onload = function() {
+        updateLeaderboard();
+
+        // Highlight multiple scanned roll numbers
+        const scannedRolls = ["23EC143","23EC166","23EC153","23EC164","23EC007"];
+        scannedRolls.forEach(roll => markPresentByRoll(roll));
+    };
   </script>
 </body>
 </html>
-
