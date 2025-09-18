@@ -49,27 +49,27 @@
       <tr>
         <th>S.No</th><th>Roll Number</th><th>Name</th><th>Mark Attendance</th>
       </tr>
-      <tr>
+      <tr id="student-24EC203">
         <td>1</td><td>24EC203</td><td>Santhiya M</td>
         <td><button class="btn-present" onclick="markPresent(this)">Present</button><button class="btn-absent" onclick="markAbsent(this)">Absent</button></td>
       </tr>
-      <tr>
+      <tr id="student-23EC007">
         <td>2</td><td>23EC007</td><td>Shruthi M G</td>
         <td><button class="btn-present" onclick="markPresent(this)">Present</button><button class="btn-absent" onclick="markAbsent(this)">Absent</button></td>
       </tr>
-      <tr>
+      <tr id="student-23EC153">
         <td>3</td><td>23EC153</td><td>Subhashree R.R</td>
         <td><button class="btn-present" onclick="markPresent(this)">Present</button><button class="btn-absent" onclick="markAbsent(this)">Absent</button></td>
       </tr>
-      <tr>
+      <tr id="student-23EC164">
         <td>4</td><td>23EC164</td><td>Vaishnavi K</td>
         <td><button class="btn-present" onclick="markPresent(this)">Present</button><button class="btn-absent" onclick="markAbsent(this)">Absent</button></td>
       </tr>
-      <tr>
+      <tr id="student-23EC166">
         <td>5</td><td>23EC166</td><td>Vijayakumar</td>
         <td><button class="btn-present" onclick="markPresent(this)">Present</button><button class="btn-absent" onclick="markAbsent(this)">Absent</button></td>
       </tr>
-      <tr>
+      <tr id="student-23EC143">
         <td>6</td><td>23EC143</td><td>Arjun M M</td>
         <td><button class="btn-present" onclick="markPresent(this)">Present</button><button class="btn-absent" onclick="markAbsent(this)">Absent</button></td>
       </tr>
@@ -161,6 +161,29 @@
       row.classList.remove("present");
     }
 
+    // NEW FUNCTION: mark attendance by roll number (for QR scan)
+    function markPresentByRoll(rollNumber) {
+        const row = document.getElementById(`student-${rollNumber}`);
+        if(row) {
+            if(row.classList.contains("present")){
+                alert(rollNumber + " is already marked present!");
+                return;
+            }
+            row.classList.add("present");
+            row.classList.remove("absent");
+
+            // Highlight in assignments table
+            let studentName = row.cells[2].innerText;
+            document.querySelectorAll("#activities-table tr").forEach(r => {
+                if(r.cells[1] && r.cells[1].innerText === studentName){
+                    r.style.backgroundColor = "#c8f7c5";
+                }
+            });
+        } else {
+            console.log("Row not found for", rollNumber);
+        }
+    }
+
     function updateLeaderboard() {
       let table = document.getElementById("activities-table");
       let leaderboard = document.getElementById("leaderboard");
@@ -180,7 +203,16 @@
       });
     }
 
-    window.onload = updateLeaderboard;
+    window.onload = function() {
+        updateLeaderboard();
+
+        // Check if a QR scan passed rollNumber in URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const rollNumber = urlParams.get('rollNumber');
+        if(rollNumber){
+            markPresentByRoll(rollNumber);
+        }
+    };
   </script>
 </body>
 </html>
