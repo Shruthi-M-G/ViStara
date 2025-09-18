@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,77 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Teacher Dashboard</title>
   <style>
-    .daily-schedule 
-    {
-  text-align: center; /* centers inline elements like <img> */
-}
-.daily-schedule img 
-{
-  display: inline-block; /* keeps image respect text-align */
-}
     .daily-schedule { text-align: center; }
     .daily-schedule img { display: inline-block; max-width: 100%; border: 2px solid #0077cc; border-radius: 8px; margin-top: 10px; }
 
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f8fc;
-      margin: 0;
-      padding: 0;
-      color: #333;
-    }
-    header {
-      background: #0077cc;
-      color: white;
-      padding: 15px;
-      text-align: center;
-    }
-    
-    nav {
-      background: #005fa3;
-      padding: 10px;
-      text-align: center;
-    }
-    nav a {
-      color: white;
-      margin: 0 15px;
-      text-decoration: none;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    nav a.active {
-      text-decoration: underline;
-    }
-    .container {
-      width: 95%;
-      margin: 20px auto;
-      display: none;
-    }
-    .active-section {
-      display: block;
-    }
-    h2 {
-      color: #005fa3;
-      border-bottom: 2px solid #0077cc;
-      padding-bottom: 5px;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 15px 0;
-      background: white;
-    }
-    table, th, td {
-      border: 1px solid #ddd;
-      text-align: center;
-      padding: 8px;
-    }
-    th {
-      background: #0077cc;
-      color: white;
-    }
-    tr:nth-child(even) {
-      background: #f2f8ff;
-    }
     body { font-family: Arial, sans-serif; background: #f4f8fc; margin: 0; padding: 0; color: #333; }
     header { background: #0077cc; color: white; padding: 15px; text-align: center; }
     nav { background: #005fa3; padding: 10px; text-align: center; }
@@ -91,24 +22,6 @@
     tr:nth-child(even) { background: #f2f8ff; }
     .present { background-color: #c8f7c5; }
     .absent { background-color: white; }
-    .low-attendance {
-      background-color: #f8d7da !important;
-      color: #a94442;
-      font-weight: bold;
-    }
-    .daily-schedule img {
-      max-width: 100%;
-      border: 2px solid #0077cc;
-      border-radius: 8px;
-      margin-top: 10px;
-    }
-    button {
-      padding: 5px 10px;
-      border: none;
-      cursor: pointer;
-      border-radius: 4px;
-      margin: 2px;
-    }
     .low-attendance { background-color: #f8d7da !important; color: #a94442; font-weight: bold; }
     button { padding: 5px 10px; border: none; cursor: pointer; border-radius: 4px; margin: 2px; }
     .btn-present { background: #28a745; color: white; }
@@ -130,95 +43,44 @@
   </nav>
 
   <!-- DAILY ATTENDANCE -->
-@@ -118,45 +51,27 @@ <h2>Daily Attendance</h2>
+  <div class="container active-section" id="daily">
+    <h2>Daily Attendance</h2>
+    <table>
+      <tr>
+        <th>S.No</th><th>Roll Number</th><th>Name</th><th>Mark Attendance</th>
       </tr>
       <tr>
         <td>1</td><td>24EC203</td><td>Santhiya M</td>
-        <td>
-          <button class="btn-present" onclick="markPresent(this)">Present</button>
-          <button class="btn-absent" onclick="markAbsent(this)">Absent</button>
-        </td>
         <td><button class="btn-present" onclick="markPresent(this)">Present</button><button class="btn-absent" onclick="markAbsent(this)">Absent</button></td>
       </tr>
       <tr>
         <td>2</td><td>23EC007</td><td>Shruthi M G</td>
-        <td>
-          <button class="btn-present" onclick="markPresent(this)">Present</button>
-          <button class="btn-absent" onclick="markAbsent(this)">Absent</button>
-        </td>
         <td><button class="btn-present" onclick="markPresent(this)">Present</button><button class="btn-absent" onclick="markAbsent(this)">Absent</button></td>
       </tr>
       <tr>
         <td>3</td><td>23EC153</td><td>Subhashree R.R</td>
-        <td>
-          <button class="btn-present" onclick="markPresent(this)">Present</button>
-          <button class="btn-absent" onclick="markAbsent(this)">Absent</button>
-        </td>
         <td><button class="btn-present" onclick="markPresent(this)">Present</button><button class="btn-absent" onclick="markAbsent(this)">Absent</button></td>
       </tr>
       <tr>
         <td>4</td><td>23EC164</td><td>Vaishnavi K</td>
-        <td>
-          <button class="btn-present" onclick="markPresent(this)">Present</button>
-          <button class="btn-absent" onclick="markAbsent(this)">Absent</button>
-        </td>
         <td><button class="btn-present" onclick="markPresent(this)">Present</button><button class="btn-absent" onclick="markAbsent(this)">Absent</button></td>
       </tr>
       <tr>
         <td>5</td><td>23EC166</td><td>Vijayakumar</td>
-        <td>
-          <button class="btn-present" onclick="markPresent(this)">Present</button>
-          <button class="btn-absent" onclick="markAbsent(this)">Absent</button>
-        </td>
         <td><button class="btn-present" onclick="markPresent(this)">Present</button><button class="btn-absent" onclick="markAbsent(this)">Absent</button></td>
       </tr>
       <tr>
         <td>6</td><td>23EC143</td><td>Arjun M M</td>
-        <td>
-          <button class="btn-present" onclick="markPresent(this)">Present</button>
-          <button class="btn-absent" onclick="markAbsent(this)">Absent</button>
-        </td>
         <td><button class="btn-present" onclick="markPresent(this)">Present</button><button class="btn-absent" onclick="markAbsent(this)">Absent</button></td>
       </tr>
     </table>
   </div>
-@@ -166,49 +81,21 @@ <h2>Daily Attendance</h2>
+
+  <!-- MONTHLY ATTENDANCE -->
+  <div class="container" id="monthly">
     <h2>Monthly Attendance Report</h2>
     <table>
       <tr>
-        <th>S.No</th><th>Roll Number</th><th>Name</th>
-        <th>Class & Section</th><th>Parent Phone</th>
-        <th>Parent Email</th><th>Attendance %</th>
-      </tr>
-      <tr>
-        <td>1</td><td>24EC203</td><td>Santhiya M</td>
-        <td>ECE - III A</td><td>9876543210</td>
-        <td>santhiya.parent@email.com</td><td>92%</td>
-      </tr>
-      <tr class="low-attendance">
-        <td>2</td><td>23EC007</td><td>Shruthi M G</td>
-        <td>ECE - III A</td><td>9876543211</td>
-        <td>shruthi.parent@email.com</td><td>68%</td>
-      </tr>
-      <tr>
-        <td>3</td><td>23EC153</td><td>Subhashree R.R</td>
-        <td>ECE - III A</td><td>9876543212</td>
-        <td>subhashree.parent@email.com</td><td>84%</td>
-      </tr>
-      <tr>
-        <td>4</td><td>23EC164</td><td>Vaishnavi K</td>
-        <td>ECE - III A</td><td>9876543213</td>
-        <td>vaishnavi.parent@email.com</td><td>87%</td>
-      </tr>
-      <tr>
-        <td>5</td><td>23EC166</td><td>Vijayakumar</td>
-        <td>ECE - III A</td><td>9876543214</td>
-        <td>vijay.parent@email.com</td><td>90%</td>
-      </tr>
-      <tr>
-        <td>6</td><td>23EC143</td><td>Arjun M M</td>
-        <td>ECE - III A</td><td>9876543215</td>
-        <td>arjun.parent@email.com</td><td>80%</td>
         <th>S.No</th><th>Roll Number</th><th>Name</th><th>Class & Section</th><th>Parent Phone</th><th>Parent Email</th><th>Attendance %</th>
       </tr>
       <tr><td>1</td><td>24EC203</td><td>Santhiya M</td><td>ECE - III A</td><td>9876543210</td><td>santhiya.parent@email.com</td><td>92%</td></tr>
@@ -233,14 +95,13 @@
   <!-- CLASS SCHEDULE -->
   <div class="container" id="schedule">
     <h2>Class Schedule & Teacher Info</h2>
-    <div class="daily-schedule">
-      <img src="tt.jpg" alt="Class Schedule">
-    </div>
     <div class="daily-schedule"><img src="tt.jpg" alt="Class Schedule"></div>
     <table>
       <tr><th>Period</th><th>Subject</th><th>Teacher Name</th><th>Email</th></tr>
       <tr><td>1</td><td>Mathematics</td><td>Prof. Kumar</td><td>kumar@college.edu</td></tr>
-@@ -218,54 +105,83 @@ <h2>Class Schedule & Teacher Info</h2>
+      <tr><td>2</td><td>Electronics</td><td>Dr. Meena</td><td>meena@college.edu</td></tr>
+      <tr><td>3</td><td>Computer Networks</td><td>Mr. Ravi</td><td>ravi@college.edu</td></tr>
+      <tr><td>4</td><td>Digital Systems</td><td>Ms. Priya</td><td>priya@college.edu</td></tr>
     </table>
   </div>
 
@@ -299,23 +160,7 @@
       row.classList.add("absent");
       row.classList.remove("present");
     }
-  </script>
-  <script>
-  // Live attendance marking from scanner
-  function liveMarkAttendance() {
-    let todayAttendance = JSON.parse(localStorage.getItem("attendance")) || {};
-    let today = new Date().toLocaleDateString();
 
-    if(!todayAttendance[today]) return; // no scanned attendance for today
-
-    // loop over scanned roll numbers and mark present in daily table
-    todayAttendance[today].forEach(roll => {
-      document.querySelectorAll('#daily table tr').forEach(row => {
-        let rowRoll = row.cells[1]?.innerText.trim();
-        if(rowRoll === roll) {
-          row.classList.add("present");
-          row.classList.remove("absent");
-        }
     function updateLeaderboard() {
       let table = document.getElementById("activities-table");
       let leaderboard = document.getElementById("leaderboard");
@@ -333,18 +178,6 @@
         tr.innerHTML = `<td>${i+1}</td><td>${d.name}</td><td>${d.total}</td>`;
         leaderboard.appendChild(tr);
       });
-    });
-
-    // Optional: remove today's attendance after marking to avoid duplicates
-    // delete todayAttendance[today];
-    // localStorage.setItem("attendance", JSON.stringify(todayAttendance));
-  }
-
-  // Call on page load
-  window.onload = function() {
-    liveMarkAttendance();
-  }
-</script>
     }
 
     window.onload = updateLeaderboard;
