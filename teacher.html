@@ -1,81 +1,188 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Teacher Dashboard</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teacher Dashboard</title>
+  <style>
+    .daily-schedule { text-align: center; }
+    .daily-schedule img { display: inline-block; max-width: 100%; border: 2px solid #0077cc; border-radius: 8px; margin-top: 10px; }
+
+    body { font-family: Arial, sans-serif; background: #f4f8fc; margin: 0; padding: 0; color: #333; }
+    header { background: #0077cc; color: white; padding: 15px; text-align: center; }
+    nav { background: #005fa3; padding: 10px; text-align: center; }
+    nav a { color: white; margin: 0 15px; text-decoration: none; font-weight: bold; cursor: pointer; }
+    nav a.active { text-decoration: underline; }
+    .container { width: 95%; margin: 20px auto; display: none; }
+    .active-section { display: block; }
+    h2 { color: #005fa3; border-bottom: 2px solid #0077cc; padding-bottom: 5px; }
+    table { width: 100%; border-collapse: collapse; margin: 15px 0; background: white; }
+    table, th, td { border: 1px solid #ddd; text-align: center; padding: 8px; }
+    th { background: #0077cc; color: white; }
+    tr:nth-child(even) { background: #f2f8ff; }
+    .present { background-color: #c8f7c5; }
+    .absent { background-color: white; }
+    .low-attendance { background-color: #f8d7da !important; color: #a94442; font-weight: bold; }
+    button { padding: 5px 10px; border: none; cursor: pointer; border-radius: 4px; margin: 2px; }
+    .btn-present { background: #28a745; color: white; }
+    .btn-absent { background: #dc3545; color: white; }
+    .points-btn { background: #0077cc; color: white; }
+    .leaderboard { margin-top: 15px; }
+  </style>
 </head>
 <body>
-<header>
+  <header>
     <h1>Teacher Dashboard</h1>
-</header>
+  </header>
 
-<nav>
-    <a class="active" onclick="showSection('daily', event)">Daily Attendance</a>
-    <a onclick="showSection('monthly', event)">Monthly Attendance</a>
-    <a onclick="showSection('schedule', event)">Class Schedule</a>
-    <a onclick="showSection('assignments', event)">Assignments & Activities</a>
-</nav>
+  <nav>
+    <a class="active" onclick="showSection('daily')">Daily Attendance</a>
+    <a onclick="showSection('monthly')">Monthly Attendance</a>
+    <a onclick="showSection('schedule')">Class Schedule</a>
+    <a onclick="showSection('assignments')">Assignments & Activities</a>
+  </nav>
 
-<!-- DAILY ATTENDANCE -->
-<div class="container active-section" id="daily">
+  <!-- DAILY ATTENDANCE -->
+  <div class="container active-section" id="daily">
     <h2>Daily Attendance</h2>
     <table>
-        <tr>
-            <th>S.No</th><th>Roll Number</th><th>Name</th><th>Mark Attendance</th>
-        </tr>
-        <tr id="student-24EC203"><td>1</td><td>24EC203</td><td>Santhiya M</td>
-            <td><button onclick="markPresent(this)">Present</button><button onclick="markAbsent(this)">Absent</button></td>
-        </tr>
-        <tr id="student-23EC007"><td>2</td><td>23EC007</td><td>Shruthi M G</td>
-            <td><button onclick="markPresent(this)">Present</button><button onclick="markAbsent(this)">Absent</button></td>
-        </tr>
-        <tr id="student-23EC153"><td>3</td><td>23EC153</td><td>Subhashree R.R</td>
-            <td><button onclick="markPresent(this)">Present</button><button onclick="markAbsent(this)">Absent</button></td>
-        </tr>
-        <tr id="student-23EC164"><td>4</td><td>23EC164</td><td>Vaishnavi K</td>
-            <td><button onclick="markPresent(this)">Present</button><button onclick="markAbsent(this)">Absent</button></td>
-        </tr>
-        <tr id="student-23EC166"><td>5</td><td>23EC166</td><td>Vijayakumar</td>
-            <td><button onclick="markPresent(this)">Present</button><button onclick="markAbsent(this)">Absent</button></td>
-        </tr>
-        <tr id="student-23EC143"><td>6</td><td>23EC143</td><td>Arjun M M</td>
-            <td><button onclick="markPresent(this)">Present</button><button onclick="markAbsent(this)">Absent</button></td>
-        </tr>
+      <tr>
+        <th>S.No</th><th>Roll Number</th><th>Name</th><th>Mark Attendance</th>
+      </tr>
+      <tr>
+        <td>1</td><td>24EC203</td><td>Santhiya M</td>
+        <td><button class="btn-present" onclick="markPresent(this)">Present</button><button class="btn-absent" onclick="markAbsent(this)">Absent</button></td>
+      </tr>
+      <tr>
+        <td>2</td><td>23EC007</td><td>Shruthi M G</td>
+        <td><button class="btn-present" onclick="markPresent(this)">Present</button><button class="btn-absent" onclick="markAbsent(this)">Absent</button></td>
+      </tr>
+      <tr>
+        <td>3</td><td>23EC153</td><td>Subhashree R.R</td>
+        <td><button class="btn-present" onclick="markPresent(this)">Present</button><button class="btn-absent" onclick="markAbsent(this)">Absent</button></td>
+      </tr>
+      <tr>
+        <td>4</td><td>23EC164</td><td>Vaishnavi K</td>
+        <td><button class="btn-present" onclick="markPresent(this)">Present</button><button class="btn-absent" onclick="markAbsent(this)">Absent</button></td>
+      </tr>
+      <tr>
+        <td>5</td><td>23EC166</td><td>Vijayakumar</td>
+        <td><button class="btn-present" onclick="markPresent(this)">Present</button><button class="btn-absent" onclick="markAbsent(this)">Absent</button></td>
+      </tr>
+      <tr>
+        <td>6</td><td>23EC143</td><td>Arjun M M</td>
+        <td><button class="btn-present" onclick="markPresent(this)">Present</button><button class="btn-absent" onclick="markAbsent(this)">Absent</button></td>
+      </tr>
     </table>
-</div>
+  </div>
 
-<!-- JS -->
-<script>
-function showSection(id, e){
-    document.querySelectorAll('.container').forEach(c=>c.classList.remove('active-section'));
-    document.getElementById(id).classList.add('active-section');
-    document.querySelectorAll('nav a').forEach(a=>a.classList.remove('active'));
-    e.target.classList.add('active');
-}
+  <!-- MONTHLY ATTENDANCE -->
+  <div class="container" id="monthly">
+    <h2>Monthly Attendance Report</h2>
+    <table>
+      <tr>
+        <th>S.No</th><th>Roll Number</th><th>Name</th><th>Class & Section</th><th>Parent Phone</th><th>Parent Email</th><th>Attendance %</th>
+      </tr>
+      <tr><td>1</td><td>24EC203</td><td>Santhiya M</td><td>ECE - III A</td><td>9876543210</td><td>santhiya.parent@email.com</td><td>92%</td></tr>
+      <tr class="low-attendance"><td>2</td><td>23EC007</td><td>Shruthi M G</td><td>ECE - III A</td><td>9876543211</td><td>shruthi.parent@email.com</td><td>68%</td></tr>
+      <tr><td>3</td><td>23EC153</td><td>Subhashree R.R</td><td>ECE - III A</td><td>9876543212</td><td>subhashree.parent@email.com</td><td>84%</td></tr>
+      <tr><td>4</td><td>23EC164</td><td>Vaishnavi K</td><td>ECE - III A</td><td>9876543213</td><td>vaishnavi.parent@email.com</td><td>87%</td></tr>
+      <tr><td>5</td><td>23EC166</td><td>Vijayakumar</td><td>ECE - III A</td><td>9876543214</td><td>vijay.parent@email.com</td><td>90%</td></tr>
+      <tr><td>6</td><td>23EC143</td><td>Arjun M M</td><td>ECE - III A</td><td>9876543215</td><td>arjun.parent@email.com</td><td>80%</td></tr>
+    </table>
+  </div>
 
-function markPresent(btn){
-    let row = btn.closest('tr');
-    row.classList.add('present');
-    row.classList.remove('absent');
-}
+  <!-- CLASS SCHEDULE -->
+  <div class="container" id="schedule">
+    <h2>Class Schedule & Teacher Info</h2>
+    <div class="daily-schedule"><img src="tt.jpg" alt="Class Schedule"></div>
+    <table>
+      <tr><th>Period</th><th>Subject</th><th>Teacher Name</th><th>Email</th></tr>
+      <tr><td>1</td><td>Mathematics</td><td>Prof. Kumar</td><td>kumar@college.edu</td></tr>
+      <tr><td>2</td><td>Electronics</td><td>Dr. Meena</td><td>meena@college.edu</td></tr>
+      <tr><td>3</td><td>Computer Networks</td><td>Mr. Ravi</td><td>ravi@college.edu</td></tr>
+      <tr><td>4</td><td>Digital Systems</td><td>Ms. Priya</td><td>priya@college.edu</td></tr>
+    </table>
+  </div>
 
-function markAbsent(btn){
-    let row = btn.closest('tr');
-    row.classList.add('absent');
-    row.classList.remove('present');
-}
+  <!-- ASSIGNMENTS & ACTIVITIES -->
+  <div class="container" id="assignments">
+    <h2>Assignments & Activities</h2>
+    <table id="activities-table">
+      <tr>
+        <th>S.No</th><th>Student</th><th>Weekly Quiz</th><th>Oratorical</th><th>Creative Writing</th>
+        <th>Power Brain</th><th>Brain Teasers</th><th>Simple Math</th><th>Science Experiments</th><th>Total Points</th>
+      </tr>
+      <tr>
+        <td>1</td><td>Santhiya M</td><td>8</td><td>7</td><td>9</td><td>10</td><td>6</td><td>8</td><td>7</td><td class="total">0</td></tr>
+      <tr>
+        <td>2</td><td>Shruthi M G</td><td>7</td><td>9</td><td>6</td><td>8</td><td>10</td><td>7</td><td>8</td><td class="total">0</td></tr>
+      <tr>
+        <td>3</td><td>Subhashree R.R</td><td>9</td><td>8</td><td>7</td><td>6</td><td>9</td><td>10</td><td>8</td><td class="total">0</td></tr>
+      <tr>
+        <td>4</td><td>Vaishnavi K</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>7</td><td>9</td><td class="total">0</td></tr>
+      <tr>
+        <td>5</td><td>Vijayakumar</td><td>8</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>6</td><td class="total">0</td></tr>
+      <tr>
+        <td>6</td><td>Arjun M M</td><td>9</td><td>10</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td class="total">0</td></tr>
+    </table>
 
-// Function for QR scan
-function markPresentByRoll(roll){
-    const row = document.getElementById(`student-${roll}`);
-    if(row){
-        row.classList.add('present');
-        row.classList.remove('absent');
+    <h3>Leaderboard</h3>
+    <table id="leaderboard" class="leaderboard">
+      <tr><th>Rank</th><th>Student</th><th>Total Points</th></tr>
+    </table>
+  </div>
+
+  <script>
+    function showSection(id) {
+      document.querySelectorAll('.container').forEach(c => c.classList.remove('active-section'));
+      document.getElementById(id).classList.add('active-section');
+      document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+      event.target.classList.add('active');
     }
-}
-</script>
+
+    function markPresent(btn) {
+      let row = btn.closest("tr");
+      row.classList.add("present");
+      row.classList.remove("absent");
+
+      // Also highlight in assignments table
+      let studentName = row.cells[2].innerText;
+      document.querySelectorAll("#activities-table tr").forEach(r => {
+        if(r.cells[1] && r.cells[1].innerText === studentName){
+          r.style.backgroundColor = "#c8f7c5";
+        }
+      });
+    }
+
+    function markAbsent(btn) {
+      let row = btn.closest("tr");
+      row.classList.add("absent");
+      row.classList.remove("present");
+    }
+
+    function updateLeaderboard() {
+      let table = document.getElementById("activities-table");
+      let leaderboard = document.getElementById("leaderboard");
+      let data = [];
+      for (let i = 1; i < table.rows.length; i++) {
+        let total = 0;
+        for(let j=2; j<=8; j++) total += parseInt(table.rows[i].cells[j].innerText);
+        table.rows[i].querySelector(".total").innerText = total;
+        data.push({name: table.rows[i].cells[1].innerText, total});
+      }
+      data.sort((a,b) => b.total - a.total);
+      leaderboard.innerHTML = "<tr><th>Rank</th><th>Student</th><th>Total Points</th></tr>";
+      data.forEach((d,i)=>{
+        let tr = document.createElement("tr");
+        tr.innerHTML = `<td>${i+1}</td><td>${d.name}</td><td>${d.total}</td>`;
+        leaderboard.appendChild(tr);
+      });
+    }
+
+    window.onload = updateLeaderboard;
+  </script>
 </body>
 </html>
+
 
